@@ -21,6 +21,7 @@ INSTALLED_APPS = [
 
     # apps
     'accounts',
+    'core',
     'blog',
 ]
 
