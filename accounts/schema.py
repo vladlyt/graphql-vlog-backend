@@ -45,7 +45,7 @@ class UpdateUser(graphene.Mutation):
 
     def mutate(self,
                info: graphene.ResolveInfo,
-               id,
+               id: graphene.ID,
                is_staff: bool = None,
                is_admin: bool = None,
                is_active: bool = None):
@@ -70,7 +70,9 @@ class DeleteUser(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
-    def mutate(self, info: graphene.ResolveInfo, id):
+    def mutate(self,
+               info: graphene.ResolveInfo,
+               id: graphene.ID):
         user = info.context.user
         if user.is_authenticated and (user.id == id or user.is_staff):
             user = User.objects.get(id=id)
@@ -79,15 +81,23 @@ class DeleteUser(graphene.Mutation):
 
 
 class UserQuery(graphene.ObjectType):
-    user = graphene.Field(UserType, id=graphene.ID())
+    user = graphene.Field(
+        UserType,
+        id=graphene.Argument(graphene.ID, required=True)
+    )
+    current_user = graphene.Field(UserType)
     all_users = graphene.List(UserType)
 
-    def resolve_user(self, info: graphene.ResolveInfo, id):
+    def resolve_user(self, info: graphene.ResolveInfo, id: graphene.ID):
         return User.objects.get(id=id) if id else None
 
     def resolve_all_users(self, info: graphene.ResolveInfo, **kwargs):
         print(kwargs)
         return User.objects.all()
+
+    def resolve_current_user(self, info: graphene.ResolveInfo):
+        user = info.context.user
+        return user if user.is_authenticated else None
 
 
 class UserMutation(graphene.ObjectType):
