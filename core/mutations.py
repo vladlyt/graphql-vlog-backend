@@ -7,6 +7,14 @@ from .types import Error
 from .utils import snake_to_camel_case
 
 
+class BaseInput(graphene.InputObjectType):
+
+    def __init__(self, *args, **kwargs):
+        if 'description' not in kwargs:
+            raise ImproperlyConfigured('No description provided in Input')
+        super().__init__(*args, required=True, **kwargs)
+
+
 class BaseMutation(graphene.Mutation):
     errors = graphene.List(
         graphene.NonNull(Error),

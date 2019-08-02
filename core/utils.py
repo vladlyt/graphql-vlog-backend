@@ -5,5 +5,5 @@ def snake_to_camel_case(name):
     return name
 
 
-def get_fields_from_input(input, *args):
-    return [input.get(value) for value in args]
+def get_fields_from_input(input, fields):
+    return [input.get(value) for value in fields]
