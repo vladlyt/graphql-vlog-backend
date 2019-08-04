@@ -52,17 +52,17 @@ class PostTestCase(GraphQlTestHelper):
             Post(
                 title="First",
                 body="first",
-                author=self.user,
+                author_id=self.user,
                 status=Post.ARCHIVED,
             ), Post(
                 title="Second",
                 body="second",
-                author=self.user,
+                author_id=self.user,
                 status=Post.DRAFT,
             ), Post(
                 title="Third",
                 body="third",
-                author=self.user,
+                author_id=self.user,
                 status=Post.PUBLISHED,
             )
         ])
