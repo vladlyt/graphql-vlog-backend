@@ -51,6 +51,5 @@ class DeletePost(ModelDeleteMutation):
         description = 'Mutation for delete post'
 
     @classmethod
-    def user_is_allowed(cls, user: User, input: dict = None):
-        # TODO implement here get_database_id for id from input
+    def user_is_allowed(cls, user, input=None, id=None):
         return user.is_authenticated and (user.is_admin or user.id == id)

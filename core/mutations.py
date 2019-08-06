@@ -2,6 +2,7 @@ from itertools import chain
 from textwrap import dedent
 
 import graphene
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.db import models
 from django.db.models.base import ModelBase
@@ -17,6 +18,7 @@ from .utils import (
     get_output_fields, get_nodes)
 
 registry = get_global_registry()
+User = get_user_model()
 
 
 class BaseInput(graphene.InputObjectType):
@@ -221,7 +223,7 @@ class ModelMutation(BaseMutation):
                 f.save_form_data(instance, cleaned_data[f.name])
 
     @classmethod
-    def user_is_allowed(cls, user, input=None):
+    def user_is_allowed(cls, user: User, input: dict = None, id: graphene.ID = None):
         """Determine whether user has rights to perform this mutation."""
         return True
 

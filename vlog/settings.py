@@ -19,11 +19,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',
 
+    'django_extensions',
+
     # apps
     'accounts',
     'core',
     'blog',
 ]
+
+SHELL_PLUS = "ipython"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
