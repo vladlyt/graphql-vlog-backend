@@ -9,7 +9,7 @@ graphql-core==2.2
 graphql-relay==0.4.5
 promise==2.2.1
 psycopg2==2.8.3
-PyJWT==1.7.1
+PyJWT==2.4.0
 pytz==2019.1
 Rx==1.6.1
 singledispatch==3.4.0.3
